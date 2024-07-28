@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nerd Market - MTG Card Value Checker</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Upload a Magic The Gathering Card Image</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" required>
+        <button type="submit">Upload</button>
+    </form>
+    <div id="result" style="display: none;">
+        <div id="cardNameDiv">
+            <h2>Card Name</h2>
+            <p id="cardName"></p>
+        </div>
+        <div id="extractedTextDiv">
+            <h2>Extracted Text</h2>
+            <p id="extractedText"></p>
+        </div>
+        <div id="priceDiv">
+            <h2>Price</h2>
+            <p id="price"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').onsubmit = async function(e) {
+            e.preventDefault();
+            let formData = new FormData();
+            formData.append('file', document.getElementById('fileInput').files[0]);
+
+            let response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            let result = await response.json();
+            if (result.card_value && typeof result.card_value === 'object') {
+                document.getElementById('cardName').innerText = result.card_value.name;
+                document.getElementById('extractedText').innerText = result.extracted_text;
+                document.getElementById('price').innerHTML = `
+                    Price: $${result.card_value.usd}<br>
+                    Foil Price: $${result.card_value.usd_foil}`;
+            } else {
+                document.getElementById('cardName').innerText = 'Card not found';
+                document.getElementById('extractedText').innerText = result.extracted_text;
+                document.getElementById('price').innerText = 'Error: Card not found';
+            }
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

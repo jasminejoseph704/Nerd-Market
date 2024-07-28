@@ -1,0 +1,73 @@
+/* styles.css */
+body {
+    background: url('../images/dragonbackground.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    font-family: 'Cinzel', serif;
+    color: #f5f5f5;
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    font-size: 3em;
+    color: #ffcc00;
+    text-shadow: 2px 2px 5px #000;
+}
+
+form {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    margin: 20px;
+}
+
+input[type="file"] {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #333;
+    color: #ffcc00;
+    border: 2px solid #ffcc00;
+}
+
+button {
+    background: #ffcc00;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #ff9900;
+}
+
+#result {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    margin: 20px;
+    text-align: left;
+}
+
+#cardNameDiv, #extractedTextDiv, #priceDiv {
+    margin: 10px 0;
+}
+
+#cardNameDiv h2, #extractedTextDiv h2, #priceDiv h2 {
+    color: #ffcc00;
+    text-shadow: 1px 1px 3px #000;
+}
+
+#cardName, #extractedText, #price {
+    font-size: 1.2em;
+    color: #ffcc00;
+    text-shadow: 1px 1px 3px #000;
+}
