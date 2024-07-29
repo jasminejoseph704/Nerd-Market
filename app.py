@@ -9,12 +9,11 @@ import re
 
 app = Flask(__name__)
 
-# Set the Tesseract executable path based on the environment
-if 'HEROKU' in os.environ:
-    # Path for Tesseract on Heroku
-    pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-else:
-    # Path for Tesseract on local development machine (Windows)
+# Check if running on Heroku
+HEROKU = os.getenv('HEROKU')
+
+if not HEROKU:
+    # Set the Tesseract executable path if running locally and not in PATH
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 # Initialize the cache (using shelve for simplicity)
@@ -39,7 +38,7 @@ def clean_text(text):
     # Attempt to extract Oracle text portion (simplified logic)
     # Assume the Oracle text starts after the first period and ends before the last period
     oracle_text_match = re.search(r'\.\s+(.*?)\.\s', text)
-    if oracle_text_match:
+    if (oracle_text_match):
         text = oracle_text_match.group(1)
     
     # Additional cleaning steps can be added here
@@ -79,25 +78,4 @@ def search_card_value(card_text):
     response = requests.get(api_url, params=params)
     time.sleep(0.1)  # Delay to respect Scryfall API rate limits
     if response.status_code == 200:
-        data = response.json()
-        if data['data']:
-            # Get the first matching card's price
-            card = data['data'][0]
-            if 'prices' in card:
-                usd_price = card['prices'].get('usd', 'N/A')
-                usd_foil_price = card['prices'].get('usd_foil', 'N/A')
-                return {
-                    'name': card['name'],
-                    'usd': usd_price,
-                    'usd_foil': usd_foil_price
-                }
-            return 'Price not available'
-        return 'Card not found'
-    elif response.status_code == 404:
-        return 'Card not found'
-    else:
-        return 'Error fetching card data'
-
-if __name__ == '__main__':
-    print("Running the Flask app...")
-    app.run(debug=True)
+        data = r
