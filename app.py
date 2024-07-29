@@ -7,10 +7,15 @@ import time
 import shelve
 import re
 
-# Set the Tesseract executable path if it's not in PATH
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
 app = Flask(__name__)
+
+# Set the Tesseract executable path based on the environment
+if 'HEROKU' in os.environ:
+    # Path for Tesseract on Heroku
+    pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+else:
+    # Path for Tesseract on local development machine (Windows)
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 # Initialize the cache (using shelve for simplicity)
 CACHE_FILE = "card_cache.db"
