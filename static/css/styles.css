@@ -1,4 +1,3 @@
-/* styles.css */
 body {
     background: url('../images/dragonbackground.jpg') no-repeat center center fixed; 
     background-size: cover;
@@ -23,7 +22,7 @@ form {
     margin: 20px;
 }
 
-input[type="file"] {
+input[type="file"], input[type="password"] {
     margin: 10px;
     padding: 10px;
     border-radius: 5px;
@@ -54,20 +53,8 @@ button:hover {
     box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
     display: inline-block;
     margin: 20px;
-    text-align: left;
-}
-
-#cardNameDiv, #extractedTextDiv, #priceDiv {
-    margin: 10px 0;
-}
-
-#cardNameDiv h2, #extractedTextDiv h2, #priceDiv h2 {
-    color: #ffcc00;
-    text-shadow: 1px 1px 3px #000;
-}
-
-#cardName, #extractedText, #price {
     font-size: 1.2em;
     color: #ffcc00;
+    text-align: left;
     text-shadow: 1px 1px 3px #000;
 }
